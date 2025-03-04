@@ -3,25 +3,22 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const AddBeneficiaryData = ({ setBeneficiaries }) => {
-  const API_BASE_URL = "http://127.0.0.1:8000";
+  const API_BASE_URL = "https://anas-bn-malik-django-app.onrender.com/api/";
 
   const [formData, setFormData] = useState({
     name: "",
-    contactPhone: "",
+    contact_phone: "",
     address: "",
-    stateOfOrigin: "",
-    bankName: "",
-    accountName: "",
-    accountNumber: "",
-    amount: "",
-    ninNumber: "",
-    administratorName: "",
-    modeOfPayment: "",
-    paymentOfficer: "",
+    state_of_origin: "",
+    bank_name: "",
+    account_name: "",
+    account_number: "",
+    amount: null,
+    nin_number: "",
+    administrator_name: "",
+    mode_of_payment: "",
+    payment_officer: "",
     remarks: "",
-    gender: "",
-    occupation: "",
-    need: "",
   });
 
   const navigate = useNavigate();
@@ -29,7 +26,7 @@ const AddBeneficiaryData = ({ setBeneficiaries }) => {
   useEffect(() => {
     const fetchBeneficiaries = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/api/beneficiaries/`);
+        const response = await fetch(`${API_BASE_URL}beneficiaries/`);
         if (!response.ok) throw new Error("Failed to fetch beneficiaries");
 
         const data = await response.json();
@@ -50,7 +47,7 @@ const AddBeneficiaryData = ({ setBeneficiaries }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/beneficiaries/`, {
+      const response = await fetch(`${API_BASE_URL}beneficiaries/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -132,11 +129,11 @@ const AddBeneficiaryData = ({ setBeneficiaries }) => {
               <select
                 type="text"
                 id="stateOfOrigin"
-                name="stateOfOrigin"
+                name="state_of_origin"
                 className="border rounded w-full py-2 px-3 mb-2"
                 placeholder="State Of Origin"
                 required
-                value={formData.stateOfOrigin}
+                value={formData.state_of_origin}
                 onChange={handleChange}
               >
                 <option selected>Choose</option>
@@ -189,11 +186,11 @@ const AddBeneficiaryData = ({ setBeneficiaries }) => {
               <input
                 type="text"
                 id="ninNumber"
-                name="ninNumber"
+                name="nin_number"
                 className="border rounded w-full py-2 px-3"
                 placeholder="NIN Number for applicants"
                 required
-                value={formData.ninNumber}
+                value={formData.nin_number}
                 onChange={handleChange}
               />
             </div>
@@ -207,68 +204,10 @@ const AddBeneficiaryData = ({ setBeneficiaries }) => {
               <input
                 type="tel"
                 id="contactPhone"
-                name="contactPhone"
+                name="contact_phone"
                 className="border rounded w-full py-2 px-3"
                 placeholder="Phone Number"
-                value={formData.contactPhone}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                htmlFor="gender"
-                className="block text-gray-700 font-bold mb-2"
-              >
-                Gender
-              </label>
-
-              <select
-                type="text"
-                id="gender"
-                name="gender"
-                className="border rounded w-full py-2 px-3"
-                placeholder="Gender"
-                value={formData.gender}
-                onChange={handleChange}
-              >
-                <option selected>Choose</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
-            </div>
-
-            <div className="mb-4">
-              <label
-                htmlFor="occupation"
-                className="block text-gray-700 font-bold mb-2"
-              >
-                Occupation
-              </label>
-              <input
-                type="text"
-                id="occupation"
-                name="occupation"
-                className="border rounded w-full py-2 px-3"
-                placeholder="Occupation"
-                value={formData.occupation}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="mb-4">
-              <label
-                htmlFor="need"
-                className="block text-gray-700 font-bold mb-2"
-              >
-                Need
-              </label>
-              <input
-                type="text"
-                id="need"
-                name="need"
-                className="border rounded w-full py-2 px-3"
-                placeholder="Need"
-                value={formData.need}
+                value={formData.contact_phone}
                 onChange={handleChange}
               />
             </div>
@@ -283,10 +222,10 @@ const AddBeneficiaryData = ({ setBeneficiaries }) => {
               <input
                 type="text"
                 id="accountName"
-                name="accountName"
+                name="account_name"
                 className="border rounded w-full py-2 px-3"
                 placeholder="Beneficiary account name"
-                value={formData.accountName}
+                value={formData.account_name}
                 onChange={handleChange}
               />
             </div>
@@ -301,10 +240,10 @@ const AddBeneficiaryData = ({ setBeneficiaries }) => {
               <input
                 type="text"
                 id="accountNumber"
-                name="accountNumber"
+                name="account_number"
                 className="border rounded w-full py-2 px-3"
                 placeholder="Benificiary account number"
-                value={formData.accountNumber}
+                value={formData.account_number}
                 onChange={handleChange}
               />
             </div>
@@ -319,10 +258,10 @@ const AddBeneficiaryData = ({ setBeneficiaries }) => {
               <select
                 type="text"
                 id="bankName"
-                name="bankName"
+                name="bank_name"
                 className="border rounded w-full py-2 px-3"
                 placeholder="Name of bank"
-                value={formData.bankName}
+                value={formData.bank_name}
                 onChange={handleChange}
               >
                 <option selected>Choose</option>
@@ -359,10 +298,10 @@ const AddBeneficiaryData = ({ setBeneficiaries }) => {
               </label>
               <select
                 id="modeOfPayment"
-                name="modeOfPayment"
+                name="mode_of_payment"
                 className="border rounded w-full py-2 px-3"
                 placeholder="Mode of payment"
-                value={formData.modeOfPayment}
+                value={formData.mode_of_payment}
                 onChange={handleChange}
               >
                 <option selected>Choose</option>
@@ -383,10 +322,10 @@ const AddBeneficiaryData = ({ setBeneficiaries }) => {
               <input
                 type="text"
                 id="administratorName"
-                name="administratorName"
+                name="administrator_name"
                 className="border rounded w-full py-2 px-3"
                 placeholder="Administrator Name"
-                value={formData.administratorName}
+                value={formData.administrator_name}
                 onChange={handleChange}
               />
             </div>
@@ -400,11 +339,11 @@ const AddBeneficiaryData = ({ setBeneficiaries }) => {
               </label>
               <textarea
                 id="paymentOfficer"
-                name="paymentOfficer"
+                name="payment_officer"
                 rows="4"
                 className="border rounded w-full py-2 px-3"
                 placeholder="Payment Officer"
-                value={formData.paymentOfficer}
+                value={formData.payment_officer}
                 onChange={handleChange}
               ></textarea>
             </div>

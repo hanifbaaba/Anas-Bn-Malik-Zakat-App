@@ -6,7 +6,7 @@ import AddBeneficiaryData from "./Components/AddBeneficiaryData";
 import EditBeneficiaryData from "./Components/EditBeneficiaryData";
 import { useState, useEffect } from "react";
 
-const API_BASE_URL = "http://127.0.0.1:8000/api";
+const API_BASE_URL = "https://anas-bn-malik-django-app.onrender.com/api/";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -17,7 +17,7 @@ export default function App() {
     const fetchBeneficiaries = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`${API_BASE_URL}/beneficiaries`);
+        const response = await fetch(`${API_BASE_URL}beneficiaries`);
         if (!response.ok) {
           throw new Error("Failed to fetch beneficiaries");
         }
@@ -69,26 +69,27 @@ export default function App() {
                   {expandedIndex === index ? (
                     <>
                       <p className="text-gray-600">
-                        <strong>State:</strong> {beneficiary.stateOfOrigin}
+                        <strong>State:</strong> {beneficiary.state_of_origin}
                       </p>
                       <p className="text-gray-600">
-                        <strong>Phone:</strong> {beneficiary.contactPhone}
+                        <strong>Phone:</strong> {beneficiary.contact_phone}
                       </p>
                       <p className="text-gray-600">
                         <strong>Address:</strong> {beneficiary.address}
                       </p>
                       <p className="text-gray-600">
-                        <strong>Bank:</strong> {beneficiary.bankName}
+                        <strong>Bank:</strong> {beneficiary.bank_name}
                       </p>
                       <p className="text-gray-600">
-                        <strong>Account Name:</strong> {beneficiary.accountName}
+                        <strong>Account Name:</strong>{" "}
+                        {beneficiary.account_name}
                       </p>
                       <p className="text-gray-600">
                         <strong>Account Number:</strong>{" "}
-                        {beneficiary.accountNumber}
+                        {beneficiary.account_number}
                       </p>
                       <p className="text-gray-600">
-                        <strong>NIN:</strong> {beneficiary.ninNumber}
+                        <strong>NIN:</strong> {beneficiary.nin_number}
                       </p>
                       <div className="mt-2 flex space-x-2">
                         <button
