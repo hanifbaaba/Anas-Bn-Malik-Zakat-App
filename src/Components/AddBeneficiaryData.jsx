@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 const AddBeneficiaryData = ({ setBeneficiaries }) => {
   const API_BASE_URL = "https://anas-bn-malik-django-app.onrender.com/api/";
 
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     contact_phone: "",
@@ -45,6 +46,7 @@ const AddBeneficiaryData = ({ setBeneficiaries }) => {
 
   const submitForm = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const response = await fetch(`${API_BASE_URL}beneficiaries/`, {
@@ -57,8 +59,25 @@ const AddBeneficiaryData = ({ setBeneficiaries }) => {
       if (!response.ok) throw new Error("Failed to add beneficiary");
       toast.success("Beneficiary added successfully!");
       navigate("/");
+      setFormData({
+        name: "",
+        contact_phone: "",
+        address: "",
+        state_of_origin: "",
+        bank_name: "",
+        account_name: "",
+        account_number: "",
+        amount: null,
+        nin_number: "",
+        administrator_name: "",
+        mode_of_payment: "",
+        payment_officer: "",
+        remarks: "",
+      });
     } catch (error) {
       toast.error("Failed to add beneficiary. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -370,6 +389,7 @@ const AddBeneficiaryData = ({ setBeneficiaries }) => {
               <button
                 className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
                 type="submit"
+                disabled={loading}
               >
                 Add Beneficiary
               </button>

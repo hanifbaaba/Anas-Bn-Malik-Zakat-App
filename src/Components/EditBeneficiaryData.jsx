@@ -4,7 +4,8 @@ import { toast } from "react-toastify";
 
 const EditBeneficiaryData = ({ setLoading }) => {
   const API_BASE_URL =
-    "https://anas-bn-malik-django-app.onrender.com/api/beneficiaries/";
+    // "https://anas-bn-malik-django-app.onrender.com/api/beneficiaries/";
+    "https://anas-bn-malik-django-app.onrender.com/api/beneficiaries"; // removed trailing slash
   const { id } = useParams();
   const navigate = useNavigate();
 
