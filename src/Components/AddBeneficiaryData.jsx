@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const AddBeneficiaryData = ({ setBeneficiaries }) => {
+const AddBeneficiaryData = ({ refetchBeneficiaries }) => {
   const API_BASE_URL = "https://anas-bn-malik-django-app.onrender.com/api/";
 
   const [loading, setLoading] = useState(false);
@@ -20,24 +20,27 @@ const AddBeneficiaryData = ({ setBeneficiaries }) => {
     mode_of_payment: "",
     payment_officer: "",
     remarks: "",
+    gender: "", // Add gender
+    need: "", // Add need
+    occupation: "", // Add occupation
   });
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchBeneficiaries = async () => {
-      try {
-        const response = await fetch(`${API_BASE_URL}beneficiaries/`);
-        if (!response.ok) throw new Error("Failed to fetch beneficiaries");
+  // useEffect(() => {
+  //   const fetchBeneficiaries = async () => {
+  //     try {
+  //       const response = await fetch(`${API_BASE_URL}beneficiaries/`);
+  //       if (!response.ok) throw new Error("Failed to fetch beneficiaries");
 
-        const data = await response.json();
-        setBeneficiaries(data);
-      } catch (error) {
-        console.error("Error fetching beneficiaries:", error);
-      }
-    };
-    fetchBeneficiaries();
-  }, []);
+  //       const data = await response.json();
+  //       setBeneficiaries(data);
+  //     } catch (error) {
+  //       console.error("Error fetching beneficiaries:", error);
+  //     }
+  //   };
+  //   fetchBeneficiaries();
+  // }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -383,6 +386,47 @@ const AddBeneficiaryData = ({ setBeneficiaries }) => {
                 value={formData.remarks}
                 onChange={handleChange}
               ></textarea>
+            </div>
+            <div className="mb-4">
+              <label className="block text-gray-700 font-bold mb-2">
+                Gender
+              </label>
+              <select
+                name="gender"
+                value={formData.gender}
+                onChange={handleChange}
+                className="border rounded w-full py-2 px-3"
+              >
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-gray-700 font-bold mb-2">Need</label>
+              <input
+                type="text"
+                name="need"
+                value={formData.need}
+                onChange={handleChange}
+                className="border rounded w-full py-2 px-3"
+                placeholder="Enter Need"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-gray-700 font-bold mb-2">
+                Occupation
+              </label>
+              <input
+                type="text"
+                name="occupation"
+                value={formData.occupation}
+                onChange={handleChange}
+                className="border rounded w-full py-2 px-3"
+                placeholder="Enter Occupation"
+              />
             </div>
 
             <div>

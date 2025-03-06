@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const EditBeneficiaryData = ({ setLoading }) => {
+const EditBeneficiaryData = ({ setLoading, refetchBeneficiaries }) => {
   const API_BASE_URL =
-    // "https://anas-bn-malik-django-app.onrender.com/api/beneficiaries/";
-    "https://anas-bn-malik-django-app.onrender.com/api/beneficiaries"; // removed trailing slash
+    "https://anas-bn-malik-django-app.onrender.com/api/beneficiaries";
+
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -23,6 +23,9 @@ const EditBeneficiaryData = ({ setLoading }) => {
     mode_of_payment: "",
     payment_officer: "",
     remarks: "",
+    ender: "",
+    need: "",
+    occupation: "",
   });
 
   useEffect(() => {
@@ -61,6 +64,7 @@ const EditBeneficiaryData = ({ setLoading }) => {
       });
       if (!response.ok) throw new Error("Failed to update");
       toast.success("Beneficiary updated successfully!");
+      refetchBeneficiaries();
       navigate("/");
     } catch (error) {
       toast.error("Failed to update beneficiary.");
@@ -72,13 +76,15 @@ const EditBeneficiaryData = ({ setLoading }) => {
 
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this beneficiary?"))
-      return setLoading(true);
+      return;
+    setLoading(true);
     try {
       const response = await fetch(`${API_BASE_URL}/${id}/`, {
         method: "DELETE",
       });
       if (!response.ok) throw new Error("Failed to delete");
       toast.success("Beneficiary deleted successfully!");
+      refetchBeneficiaries();
       navigate("/");
     } catch (error) {
       toast.error("Failed to delete beneficiary.");
@@ -128,25 +134,6 @@ const EditBeneficiaryData = ({ setLoading }) => {
                 value={formData.address}
                 onChange={handleChange}
               ></textarea>
-            </div>
-
-            <div className="mb-4">
-              <label
-                htmlFor="amount"
-                className="block text-gray-700 font-bold mb-2"
-              >
-                Amount received
-              </label>
-              <input
-                id="amount"
-                type="text"
-                placeholder="Amount given"
-                name="amount"
-                className="border rounded w-full py-2 px-3"
-                required
-                value={formData.amount}
-                onChange={handleChange}
-              ></input>
             </div>
 
             <div className="mb-4">
@@ -203,7 +190,6 @@ const EditBeneficiaryData = ({ setLoading }) => {
                 <option>ZAMFARA</option>
               </select>
             </div>
-
             <div className="mb-4">
               <label
                 htmlFor="ninNumber"
@@ -337,6 +323,67 @@ const EditBeneficiaryData = ({ setLoading }) => {
                 <option value="Bank transfer">Bank Transfer</option>
                 <option value="Cash">Cash</option>
               </select>
+            </div>
+
+            <div className="mb-4">
+              <label
+                htmlFor="amount"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                Amount received
+              </label>
+              <input
+                id="amount"
+                type="text"
+                placeholder="Amount given"
+                name="amount"
+                className="border rounded w-full py-2 px-3"
+                required
+                value={formData.amount}
+                onChange={handleChange}
+              ></input>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-gray-700 font-bold mb-2">
+                Gender
+              </label>
+              <select
+                name="gender"
+                value={formData.gender}
+                onChange={handleChange}
+                className="border rounded w-full py-2 px-3"
+              >
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-gray-700 font-bold mb-2">Need</label>
+              <input
+                type="text"
+                name="need"
+                value={formData.need}
+                onChange={handleChange}
+                className="border rounded w-full py-2 px-3"
+                placeholder="Enter Need"
+              />
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-gray-700 font-bold mb-2">
+                Occupation
+              </label>
+              <input
+                type="text"
+                name="occupation"
+                value={formData.occupation}
+                onChange={handleChange}
+                className="border rounded w-full py-2 px-3"
+                placeholder="Enter Occupation"
+              />
             </div>
 
             <h3 className="text-2xl mb-5">Administrator Info</h3>

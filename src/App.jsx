@@ -5,6 +5,7 @@ import Spinner from "./Components/Spinner";
 import AddBeneficiaryData from "./Components/AddBeneficiaryData";
 import EditBeneficiaryData from "./Components/EditBeneficiaryData";
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 const API_BASE_URL = "https://anas-bn-malik-django-app.onrender.com/api/";
 
@@ -13,23 +14,23 @@ export default function App() {
   const [beneficiaries, setBeneficiaries] = useState([]);
   const [expandedIndex, setExpandedIndex] = useState(null);
 
-  useEffect(() => {
-    const fetchBeneficiaries = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch(`${API_BASE_URL}beneficiaries`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch beneficiaries");
-        }
-        const data = await response.json();
-        setBeneficiaries(data);
-      } catch (error) {
-        console.error("Error fetching beneficiaries:", error);
-      } finally {
-        setLoading(false);
+  const fetchBeneficiaries = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`${API_BASE_URL}beneficiaries`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch beneficiaries");
       }
-    };
+      const data = await response.json();
+      setBeneficiaries(data);
+    } catch (error) {
+      console.error("Error fetching beneficiaries:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchBeneficiaries();
   }, []);
 
@@ -123,11 +124,15 @@ export default function App() {
         <Routes>
           <Route
             path="/add-beneficiary"
-            element={<AddBeneficiaryData setBeneficiaries={setBeneficiaries} />}
+            element={
+              <AddBeneficiaryData refetchBeneficiaries={fetchBeneficiaries} />
+            }
           />
           <Route
             path="/edit-beneficiary/:id"
-            element={<EditBeneficiaryData setLoading={setLoading} />}
+            element={
+              <EditBeneficiaryData refetchBeneficiaries={fetchBeneficiaries} />
+            }
           />
         </Routes>
       </div>
