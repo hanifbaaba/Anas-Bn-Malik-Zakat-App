@@ -23,9 +23,9 @@ const EditBeneficiaryData = ({ setLoading, refetchBeneficiaries }) => {
     mode_of_payment: "",
     payment_officer: "",
     remarks: "",
-    ender: "",
-    need: "",
-    occupation: "",
+    // gender: "",
+    // need: "",
+    // occupation: "",
   });
 
   useEffect(() => {
@@ -344,7 +344,7 @@ const EditBeneficiaryData = ({ setLoading, refetchBeneficiaries }) => {
               ></input>
             </div>
 
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label className="block text-gray-700 font-bold mb-2">
                 Gender
               </label>
@@ -384,7 +384,7 @@ const EditBeneficiaryData = ({ setLoading, refetchBeneficiaries }) => {
                 className="border rounded w-full py-2 px-3"
                 placeholder="Enter Occupation"
               />
-            </div>
+            </div> */}
 
             <h3 className="text-2xl mb-5">Administrator Info</h3>
 

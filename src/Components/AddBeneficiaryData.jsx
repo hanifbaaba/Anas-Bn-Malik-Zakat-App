@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+// useEffect,
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -20,9 +21,9 @@ const AddBeneficiaryData = ({ refetchBeneficiaries }) => {
     mode_of_payment: "",
     payment_officer: "",
     remarks: "",
-    gender: "", // Add gender
-    need: "", // Add need
-    occupation: "", // Add occupation
+    // gender: "", // Add gender
+    // need: "", // Add need
+    // occupation: "", // Add occupation
   });
 
   const navigate = useNavigate();
@@ -61,6 +62,7 @@ const AddBeneficiaryData = ({ refetchBeneficiaries }) => {
       });
       if (!response.ok) throw new Error("Failed to add beneficiary");
       toast.success("Beneficiary added successfully!");
+      refetchBeneficiaries();
       navigate("/");
       setFormData({
         name: "",
@@ -387,7 +389,7 @@ const AddBeneficiaryData = ({ refetchBeneficiaries }) => {
                 onChange={handleChange}
               ></textarea>
             </div>
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label className="block text-gray-700 font-bold mb-2">
                 Gender
               </label>
@@ -427,7 +429,7 @@ const AddBeneficiaryData = ({ refetchBeneficiaries }) => {
                 className="border rounded w-full py-2 px-3"
                 placeholder="Enter Occupation"
               />
-            </div>
+            </div> */}
 
             <div>
               <button
